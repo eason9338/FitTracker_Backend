@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 
 const connectDB = async () => {
-  MONGODB_URL = process.env.MONGODB_URL || 'mongodb://localhost:27017/FitTrack'
+  const dev_mode = false;
+  const MONGODB_URL = dev_mode ? process.env.MONGODB_URL_LOCAL : process.env.MONGODB_URL
   try {
-    await mongoose.connect(process.env.MONGODB_URL);
-    console.log('MongoDB connected successfully');
+    await mongoose.connect(MONGODB_URL);
+    console.log('MongoDB connected successfully on: ', MONGODB_URL);
   } catch (error) {
     console.error('MongoDB connection error:', error);
     process.exit(1);

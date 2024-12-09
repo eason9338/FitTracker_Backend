@@ -7,19 +7,16 @@ exports.login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     
-    // 檢查用戶是否存在
     const user = await User.findOne({ email });
     if (!user) {
       throw createError(401, 'Invalid email or password');
     }
 
-    // 檢查密碼
     const isValidPassword = await bcrypt.compare(password, user.password);
     if (!isValidPassword) {
       throw createError(401, 'Invalid email or password');
     }
 
-    // 創建 token
     const token = createToken(user._id);
 
     res.json({
