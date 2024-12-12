@@ -21,7 +21,7 @@ const exerciseSchema = new mongoose.Schema({
       trim: true
     }]
 }, {
-    timestamps: true
+    timestamps: false
 });
 
 // 新增靜態方法來獲取類別對照表

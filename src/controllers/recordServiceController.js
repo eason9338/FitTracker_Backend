@@ -1,10 +1,13 @@
 const Record = require('../models/Record');
+const moment = require('moment-timezone');
 
 exports.createRecord = async (req, res, next) => {
     try {
-        const { exercises } = req.body
+        const { name, exercises } = req.body
         const userId = req.user.id
-        const currentDate = new Date();
+        const currentDate = new Date(
+            new Date().getTime() + (8 * 60 * 60 * 1000)
+        );
 
         const formattedExercises = exercises.map((exercise) => ({
             exercise: exercise.id,
@@ -16,23 +19,25 @@ exports.createRecord = async (req, res, next) => {
 
         const newRecord = {
             user: userId,
-            date: currentDate,
+            date: currentDate,  
+            name,
             exercises: formattedExercises
         }
 
         const createdRecord = await Record.create(newRecord);
 
         const populatedRecord = await Record.findById(createdRecord._id)
-        .populate('user', 'name')
-        .populate('exercises.exercise', 'name');
+            .populate('user', 'name')
+            .populate('exercises.exercise', 'name');
 
         res.status(201).json({
             success: true,
-            data: {
-                record: populatedRecord
-            }
         });
     } catch (error) {
         next(error);
     }
+}
+
+exports.deleteRecord = async (req, res, next) => {
+    
 }

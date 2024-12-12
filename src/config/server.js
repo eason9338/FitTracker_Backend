@@ -9,6 +9,7 @@ require('dotenv').config();
 const authRoutes = require('../routes/auth');
 const exerciseRoutes = require('../routes/exercise');
 const recordRoutes = require('../routes/record');
+const planRoutes = require('../routes/plan');
 // const userRoutes = require('../routes/user');
 
 const app = express();
@@ -34,6 +35,7 @@ app.use((req, res, next) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/exercise', exerciseRoutes);
 app.use('/api/record', recordRoutes);
+app.use('/api/plan', planRoutes);
 // app.use('/api/user', userRoutes);
 
 // Error handling middleware

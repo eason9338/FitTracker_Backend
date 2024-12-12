@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { createRecord } = require('../controllers/createRecordController');
+const { createRecord } = require('../controllers/recordServiceController');
 const { getRecord } = require('../controllers/getRecordController');
 const { protect } = require('../middleware/jwtAuth');
 

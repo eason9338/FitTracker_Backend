@@ -3,7 +3,6 @@ const User = require('../models/User');
 
 exports.protect = async (req, res, next) => {
     try {
-        // 1. 檢查 token 是否存在
         if (!req.headers.authorization || !req.headers.authorization.startsWith('Bearer')) {
           const error = new Error('No token found, please provide one in header');
           error.status = 401;
@@ -12,7 +11,6 @@ exports.protect = async (req, res, next) => {
   
         const token = req.headers.authorization.split(' ')[1];
   
-        // 2. 驗證 token
         let decoded;
         try {
             decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -30,7 +28,6 @@ exports.protect = async (req, res, next) => {
           throw error;
         }
   
-        // 5. 將用戶信息添加到請求對象
         req.user = user;
         next();
         

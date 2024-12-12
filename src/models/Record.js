@@ -1,6 +1,12 @@
 const mongoose = require('mongoose');
 
 const recordSchema = new mongoose.Schema({
+    name: {
+      type: String, 
+      required: false,
+      default: '健身紀錄'
+    },
+
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
@@ -38,7 +44,7 @@ const recordSchema = new mongoose.Schema({
       trim: true
     }
 }, {
-timestamps: true
+timestamps: false
 });
 
 module.exports = mongoose.model('Record', recordSchema);
